@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="Golang 基础知识 - https://idiots-dream.github.io/posts/golang/basic/">
+    <meta name="author" content="漠河 - https://idiots-dream.github.io">
+    
+    <meta name="msvalidate.01" content="B46311949B856F2A7015F366FB3CE878" />
+    <title>Golang 基础知识</title>
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="https://idiots-dream.github.io/style.min.d252ad53a5e6b2ae6b8c6c1661107189be3668e36c8dd61697bbe008595a7e04.css">
+    
+    <script type="text/javascript" src="/main.js" defer></script>
+    
+</head>
+<body class="active-animate cool">
+        <div id="header"><div class="container-header">
+    <div id="vars" class="container-vars" style="display: none;">
+	{
+		"isSingleColumnOfPostList": true,
+		"hasFoldAllCodeBlocks": false,
+		"svgColor": "",
+		"en": false,
+		"dark": true
+	}
+</div>
+    <h1 class="title">
+        
+            Golang 基础知识
+            
+        
+    </h1>
+
+    <div class="container-breadcrumb-nav">
+    
+    <div class="breadcrumb-nav-bar">
+        <div><a href="/"><svg t="1656411084410" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2954" width="16" height="16"><path d="M947.5 390.6l-377-290c-34.5-26.5-82.6-26.5-117.1 0l-377 290c-14 10.8-16.6 30.9-5.9 44.9 10.8 14 30.9 16.6 44.9 5.9l28.5-21.9V768c0 88.2 71.8 160 160 160h80c35.3 0 64-28.7 64-64V640c0-17.6 14.4-32 32-32h64c17.6 0 32 14.4 32 32v224c0 35.3 28.7 64 64 64h80c88.2 0 160-71.8 160-160V419.4l28.5 21.9c5.8 4.5 12.7 6.6 19.5 6.6 9.6 0 19.1-4.3 25.4-12.5 10.8-13.9 8.2-34-5.8-44.8zM816 768c0 52.9-43.1 96-96 96h-80V640c0-52.9-43.1-96-96-96h-64c-52.9 0-96 43.1-96 96v224h-80c-52.9 0-96-43.1-96-96V370.2l284.5-218.8c11.5-8.8 27.5-8.8 39 0L816 370.2V768z" fill="#6c757d" p-id="2955"></path></svg></a></div>
+        <div><a href="/nav"><svg t="1656411531924" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5827" width="16" height="16"><path d="M849.59197473 125.23018519L139.22930586 391.72854662a23.35052669 23.35052669 0 0 0-14.95414244 21.65490745c-0.12257519 9.70384955 5.61801843 18.46795771 14.40255493 22.04306141l318.42928099 129.25528056 119.51057092 320.39047893c3.06437293 8.23295069 10.35758221 13.89182751 18.7335381 14.87242563l2.7170774 0.14300521a22.79893918 22.79893918 0 0 0 21.20546682-15.36272638l259.51158924-729.54564933a23.8612558 23.8612558 0 0 0-5.31158128-24.55584682 22.3290685 22.3290685 0 0 0-23.9021142-5.43415649zM793.65694081 211.64552314l-196.63064161 552.75171747-91.91077952-246.37564122-253.62799211-102.96295445 542.16941324-203.4131218z" p-id="5828" fill="#6c757d"></path></svg></a></div>
+        <div><a href="/search"><svg t="1656411627509" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1730" width="14" height="14"><path d="M469.333333 85.333333c211.968 0 384 172.032 384 384s-172.032 384-384 384-384-172.032-384-384 172.032-384 384-384z m0 682.666667c164.992 0 298.666667-133.674667 298.666667-298.666667 0-165.034667-133.674667-298.666667-298.666667-298.666666-165.034667 0-298.666667 133.632-298.666666 298.666666 0 164.992 133.632 298.666667 298.666666 298.666667z m362.026667 3.029333l120.704 120.661334-60.373333 60.373333-120.661334-120.704 60.330667-60.330667z" p-id="1731" fill="#6c757d"></path></svg></a></div>
+        <div><a href="/posts"><svg t="1656411724198" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5655" width="12" height="12"><path d="M811.705761 1024H212.294239c-93.1199 0-174.823046-87.570975-174.823046-187.387854V162.322018C37.471193 69.776145 112.604921 0 212.294239 0H596.190595l7.015883 5.93161c111.74388 95.479788 185.857116 170.741078 279.614824 266.093304 29.65805 30.040735 61.165743 62.122454 96.436499 97.393211l7.271006 7.334787v459.859234c-0.063781 99.816879-81.703145 187.387854-174.823046 187.387854zM212.294239 49.94033c-72.391155 0-124.882716 47.261538-124.882716 112.381688v674.290128c0 71.94469 59.507443 137.383743 124.882716 137.383743h599.411522c65.311492 0 124.882716-65.439053 124.882716-137.383743V397.417876c-32.528184-32.464404-61.73977-62.250016-89.356836-90.377328-90.951355-92.418312-163.278729-165.957521-269.601245-257.163999H212.294239z" fill="#6c757d" p-id="5656"></path><path d="M936.588477 449.526752h-212.326129c-99.753099 0-187.324073-81.703145-187.324073-174.823046V49.94033a25.002055 25.002055 0 0 1 49.94033 0v224.763376c0 65.311492 65.502834 124.882716 137.383743 124.882716h212.326129a25.002055 25.002055 0 1 1 0 49.94033z" fill="#6c757d" p-id="5657"></path></svg></a></div>
+        <div><a href="/archive"><svg t="1656411795742" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7334" width="12" height="12"><path d="M884.224 522.24H504.32V141.824c0-16.896-13.824-30.72-30.72-30.72-120.32 0-233.472 47.616-317.952 134.144S26.112 445.952 29.184 566.784c2.56 114.688 49.152 222.72 131.072 304.128 81.92 81.408 189.952 128 304.64 130.56h10.24c117.76 0 227.84-45.568 312.32-128.512 86.528-85.504 133.632-199.68 132.608-321.024-0.512-2.048-1.536-29.696-35.84-29.696z m-140.288 307.712c-74.752 73.728-173.056 112.64-277.504 110.592-205.824-4.608-370.688-169.472-375.296-374.784-3.072-104.448 35.84-202.752 108.544-277.504 65.536-67.072 151.552-107.52 243.712-114.688v378.88c0 16.896 13.824 30.72 30.72 30.72 129.024 0 311.296 0 382.976 0.512-6.144 93.184-46.08 179.712-113.152 246.272z" fill="#6c757d" p-id="7335"></path><path d="M603.136 11.264c-8.192-0.512-15.872 3.072-22.016 8.704-5.632 5.632-9.216 13.824-9.216 22.016v378.88c0 16.896 13.824 30.72 30.72 30.72h378.88c16.896 0 30.72-13.824 30.72-30.72 0-223.744-183.808-407.552-409.088-409.6z m30.208 378.88V74.24c167.424 16.384 301.056 150.016 315.904 315.904h-315.904z" fill="#6c757d" p-id="7336"></path></svg></a></div>
+        <div id="light-dark" style="cursor: pointer;"><a><svg t="1656411842215" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5086" width="12" height="12"><path d="M1007.492874 384.513055c-8.795694-34.58307-21.189627-67.666874-36.682043-99.05151-2.698679-5.397358-10.894667-3.498287-10.894666 2.598728v0.299853c0 32.484098-6.896624 63.868734-19.890263 92.554691-10.694764 23.488501-25.487523 45.077933-43.978471 64.068635-41.779547 42.679107-99.05151 66.967217-158.722299 67.26707-61.869712 0.299853-119.941284-24.188159-162.920244-68.966238-40.280281-41.979449-62.56937-98.251902-62.269516-156.323473 0.399804-59.270984 23.588452-114.94373 65.567901-156.823229 19.59041-19.59041 42.179351-35.082826 66.667364-46.077443C672.956643 71.166451 704.041426 64.469729 736.125719 64.469729h1.299364c6.097015 0 8.096037-8.096037 2.598728-10.794715C708.739126 37.982696 675.655322 25.488812 641.172203 16.493216 599.492607 5.598549 555.714038-0.098662 510.536154 0.001289 222.37722 0.700947-7.41029 237.38508 0.185992 525.444064c7.096526 271.667008 225.889418 490.559851 497.456474 497.856279 287.559228 7.796183 524.14341-220.891864 525.842579-508.551044 0.299853-44.977981-5.297407-88.656599-15.992171-130.236244z m-83.15929 301.552378c-22.588942 53.27392-54.873137 101.250434-95.953027 142.330323-41.179841 41.179841-89.056403 73.464036-142.330324 95.953027-55.172991 23.288599-113.744317 35.182777-174.314666 35.182777s-119.141675-11.794226-174.314666-35.182777c-53.27392-22.588942-101.250434-54.873137-142.330323-95.953027-41.179841-41.179841-73.464036-89.056403-95.953027-142.330323C75.749001 630.892442 63.954774 572.221164 63.954774 511.750767s11.794226-119.141675 35.182777-174.314666c22.588942-53.27392 54.873137-101.250434 95.953027-142.330323 41.179841-41.179841 89.056403-73.464036 142.330323-95.953027C392.593892 75.7642 451.26517 63.969974 511.735567 63.969974c13.99315 0 27.886348 0.599706 41.679596 1.89907C489.246577 118.643209 448.266638 198.704016 448.266638 288.360126c0 159.022152 128.836929 287.859081 287.859081 287.859081 89.156354 0 168.817357-40.580134 221.691473-104.149015 1.099462 13.09359 1.699168 26.387082 1.699168 39.680575 0 60.470397-11.794226 119.141675-35.182776 174.314666z" p-id="5087" fill="#6c757d"></path></svg></a></div>
+        
+    </div>
+
+    
+</div>
+
+            <div id="toc">📜</div>
+        
+    
+    
+</div>
+</div>
+        <div id="content">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-main 
+     container-page 
+">
+
+    <div class="desc">
+        
+        <span>
+            
+            <svg t="1656736000388" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7409" width="12" height="12"><path d="M524.885333 338.986667L200.362667 663.466667c-17.28 15.274667-27.989333 36.693333-29.696 56.234666v133.76l130.730666 0.085334c22.784-1.621333 43.989333-12.245333 61.013334-31.701334l322.688-322.645333-160.213334-160.213333z m60.373334-60.330667l160.170666 160.213333 102.144-102.144a19.712 19.712 0 0 0 0-27.861333L715.093333 176.426667a19.456 19.456 0 0 0-27.605333 0L585.258667 278.613333zM701.312 85.333333c27.946667 0 54.741333 11.136 74.282667 30.848l132.309333 132.309334a105.045333 105.045333 0 0 1 0 148.565333L424.874667 879.957333c-29.824 34.346667-72.106667 55.466667-120.448 58.794667H85.333333v-42.666667l0.128-179.84c3.626667-44.970667 24.576-86.826667 56.448-114.944l485.12-485.034666A104.789333 104.789333 0 0 1 701.269333 85.333333z" p-id="7410" fill="#adb5bd"></path></svg>
+            2023-06-30&nbsp;
+        </span>
+        <span>
+            
+            <svg t="1656737270708" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23838" width="11" height="11"><path d="M824.264 95.36c0-23.859 25.043-44.16 48.902-44.16s49.714 20.301 49.714 44.16v190.08c0 23.859-19.054 52.868-42.913 52.868h-190.08c-23.859 0-46.696-25.96-46.696-49.819s22.55-46.249 46.409-46.249h82.025C702.344 175.534 610.22 155.853 512 155.853c-206.775 0-360.398 149.372-360.398 356.147 0 206.775 153.623 358.23 360.398 358.23 206.775 0 357.467-151.455 357.467-358.23 0-23.859 23.634-50.706 53.413-50.706 29.78 0 49.92 26.847 49.92 50.706 0 254.493-206.307 460.8-460.8 460.8-254.493 0-460.8-206.307-460.8-460.8C51.2 257.507 257.507 51.2 512 51.2c122.4 0 226.684 33.296 312.264 117.369 0.358 0.351 0.358-24.052 0-73.209z" p-id="23839" fill="#adb5bd"></path></svg>
+            2023-07-01&nbsp;&nbsp;&nbsp;
+        </span>
+        <span>
+            
+            <svg t="1656737548689" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="33866" width="12" height="12"><path d="M832.038608 64.662657H192.030028C121.255125 64.662657 63.940169 121.98845 63.940169 192.694717v446.793671C63.940169 710.205493 121.255125 767.643272 192.030028 767.643272h133.353183a63.940169 63.940169 0 0 1 55.219742 31.576328l76.099638 129.83828c12.358154 21.093031 33.790754 31.626903 55.216129 31.626903s42.832688-10.544709 55.198067-31.619678l76.222461-129.870792a63.940169 63.940169 0 0 1 55.212517-31.551041h133.54103c70.576219 0 127.732228-57.289669 127.732227-127.800865V192.391272C959.825022 121.85479 902.643727 64.662657 832.038608 64.662657zM895.884854 639.842407A63.85347 63.85347 0 0 1 832.092795 703.703103h-133.54103a127.753903 127.753903 0 0 0-110.349172 63.09847l-76.222461 129.856342a0.274545 0.274545 0 0 1 0-0.050574h-0.032512s-0.021675 0.061411-0.032512 0.061412l-76.1466-129.85273A127.804477 127.804477 0 0 0 325.383211 703.703103H192.030028A64.207489 64.207489 0 0 1 127.880338 639.488388V192.694717A64.102729 64.102729 0 0 1 192.030028 128.602826h640.00858A63.799284 63.799284 0 0 1 895.884854 192.391272v447.451135z" fill="#adb5bd" p-id="33867"></path><path d="M608.154093 288.092004A31.970084 31.970084 0 0 0 576.184009 320.062089v160.078006l-134.650049-179.278119A31.970084 31.970084 0 0 0 384.002258 320.062089v255.760676a31.970084 31.970084 0 0 0 63.940169 0v-159.958796l134.650048 179.274507a31.970084 31.970084 0 0 0 57.531703-19.200113V320.062089a31.970084 31.970084 0 0 0-31.970085-31.970085z" fill="#adb5bd" p-id="33868"></path></svg>
+            6760 字</span>&nbsp;
+        <span>
+            
+            <svg t="1656737462334" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="32892" width="12" height="12"><path d="M512 74.666667C270.933333 74.666667 74.666667 270.933333 74.666667 512S270.933333 949.333333 512 949.333333 949.333333 753.066667 949.333333 512 753.066667 74.666667 512 74.666667z m0 810.666666c-204.8 0-373.333333-168.533333-373.333333-373.333333S307.2 138.666667 512 138.666667 885.333333 307.2 885.333333 512 716.8 885.333333 512 885.333333z" p-id="32893" fill="#adb5bd"></path><path d="M695.466667 567.466667l-151.466667-70.4V277.333333c0-17.066667-14.933333-32-32-32s-32 14.933333-32 32v238.933334c0 12.8 6.4 23.466667 19.2 29.866666l170.666667 81.066667c4.266667 2.133333 8.533333 2.133333 12.8 2.133333 12.8 0 23.466667-6.4 29.866666-19.2 6.4-14.933333 0-34.133333-17.066666-42.666666z" p-id="32894" fill="#adb5bd"></path></svg>
+            14 分钟</span>
+            <div class="container-ctgtag">
+	<div class="taxonomy">
+		
+		<div class="ctg">
+			
+			
+		</div>
+		<div class="tag">
+			
+			
+			
+		</div>
+	</div>
+</div>
+        
+    </div>
+    
+    <div class="toc">
+        
+        <div class="page-operation">
+            <div><a href="#"><img src="/imgs/icons/arrow-up-circle.svg" alt=""></a></div>
+            <div><a href="https://idiots-dream.github.io/posts/golang/struct/"><img src="/imgs/icons/arrow-left-circle.svg" alt=""></a></div>
+            <div></div>
+        </div>
+        
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据类型">数据类型</a>
+      <ul>
+        <li><a href="#数字类型">数字类型</a></li>
+        <li><a href="#字符串类型">字符串类型</a></li>
+        <li><a href="#byte和rune类型">byte和rune类型</a></li>
+        <li><a href="#类型转换">类型转换</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量和常量">变量和常量</a>
+      <ul>
+        <li><a href="#变量名命名规则">变量名命名规则</a></li>
+        <li><a href="#变量初始化方式">变量初始化方式</a></li>
+        <li><a href="#常量">常量</a></li>
+      </ul>
+    </li>
+    <li><a href="#下划线">下划线</a>
+      <ul>
+        <li><a href="#下划线在import中">下划线在import中</a></li>
+        <li><a href="#下划线在代码中">下划线在代码中</a></li>
+      </ul>
+    </li>
+    <li><a href="#特殊函数">特殊函数</a>
+      <ul>
+        <li><a href="#init函数">init()函数</a></li>
+        <li><a href="#main函数">main()函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#流程控制">流程控制</a>
+      <ul>
+        <li><a href="#条件判断控制">条件判断控制</a></li>
+        <li><a href="#循环控制">循环控制</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+
+    <div class='content  content '>
+        <h1 id="golang-基础知识">Golang 基础知识</h1>
+<h2 id="数据类型">数据类型</h2>
+<h3 id="数字类型">数字类型</h3>
+<h4 id="整数类型int">整数类型（int）</h4>
+<p>GO语言中<strong>int类型的大小是不确定的</strong>，<strong>与具体的平台有关系</strong>，一般来说，<strong>int在32位系统中是4字节，在64位系统中是8字节</strong>，<strong>使用自动推导类型初始化一个整数，默认为int类型</strong>。</p>
+<blockquote>
+<p>由于GO语言中各 int 类型的取值范围不同，各<u>int类型间进行数据转换时，会存在数据截断的问题</u>，在使用过程中要引起注意。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uint8</td>
+<td>无符号 8 位整型 (0 到 255)</td>
+</tr>
+<tr>
+<td>uint16</td>
+<td>无符号 16 位整型 (0 到 65535)</td>
+</tr>
+<tr>
+<td>uint32</td>
+<td>无符号 32 位整型 (0 到 4294967295)</td>
+</tr>
+<tr>
+<td>uint64</td>
+<td>无符号 64 位整型 (0 到 18446744073709551615)</td>
+</tr>
+<tr>
+<td>int8</td>
+<td>有符号 8 位整型 (-128 到 127)</td>
+</tr>
+<tr>
+<td>int16</td>
+<td>有符号 16 位整型 (-32768 到 32767)</td>
+</tr>
+<tr>
+<td>int32</td>
+<td>有符号 32 位整型 (-2147483648 到 2147483647)</td>
+</tr>
+<tr>
+<td>int64</td>
+<td>有符号 64 位整型 (-9223372036854775808 到 9223372036854775807)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="浮点类型float">浮点类型（float）</h4>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float32</td>
+<td>IEEE-754 32位浮点型数</td>
+</tr>
+<tr>
+<td>float64</td>
+<td>IEEE-754 64位浮点型数</td>
+</tr>
+<tr>
+<td>complex64</td>
+<td>32 位实数和虚数</td>
+</tr>
+<tr>
+<td>complex128</td>
+<td>64 位实数和虚数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串类型">字符串类型</h3>
+<blockquote>
+<p>字符串就是一串固定长度的字符使用双引号（<code>&quot;&quot;</code>）连接起来的字符序列。</p>
+</blockquote>
+<p>Go 的字符串是由单个字节连接起来的。Go 语言的字符串的字节使用 UTF-8 编码标识 Unicode 文本</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>len(str)</td>
+<td>求长度</td>
+</tr>
+<tr>
+<td>+或fmt.Sprintf</td>
+<td>拼接字符串</td>
+</tr>
+<tr>
+<td>strings.Split</td>
+<td>分割</td>
+</tr>
+<tr>
+<td>strings.Contains</td>
+<td>判断是否包含</td>
+</tr>
+<tr>
+<td>strings.HasPrefix,strings.HasSuffix</td>
+<td>前缀/后缀判断</td>
+</tr>
+<tr>
+<td>strings.Index(),strings.LastIndex()</td>
+<td>子串出现的位置</td>
+</tr>
+<tr>
+<td>strings.Join(a[]string, sep string)</td>
+<td>join操作</td>
+</tr>
+</tbody>
+</table>
+<h3 id="byte和rune类型">byte和rune类型</h3>
+<p>组成每个字符串的元素叫做“字符”，可以通过遍历或者单个获取字符串元素获得字符。 字符用单引号（’）包裹起来</p>
+<p>Go 语言的字符有以下两种：</p>
+<ul>
+<li>uint8类型：(或叫 byte 型)，代表了ASCII码的一个字符。</li>
+<li>rune类型：代表一个 UTF-8字符。<strong>rune类型实际是一个int32</strong>， Go 使用了特殊的 <code>rune</code> 类型来处理 <code>Unicode</code>，让基于 <code>Unicode</code>的文本处理更为方便，也可以使用 <code>byte</code> 型进行默认字符串处理</li>
+</ul>
+<p>UTF8编码下一个中文汉字由<code>3~4</code>个字节组成，所以不能按照字节去遍历一个包含中文的字符串</p>
+<p>字符串底层是一个byte数组，所以可以和[]byte类型相互转换。字符串是不能修改的，字符串是由byte字节组成，所以字符串的长度是byte字节的长度。 rune类型用来表示utf8字符，一个rune字符由一个或多个byte组成。</p>
+<h4 id="修改字符串">修改字符串</h4>
+<p>要修改字符串，需要先将其转换成<code>[]rune</code>或<code>[]byte</code>，完成后再转换为<code>string</code>。都会重新分配内存，并复制字节数组。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">changeString</span>() {
+</span></span><span style="display:flex;"><span>	s1 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;hello&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#998;font-style:italic">// 强制类型转换
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	byteS1 <span style="color:#000;font-weight:bold">:=</span> []<span style="color:#0086b3">byte</span>(s1)
+</span></span><span style="display:flex;"><span>	byteS1[<span style="color:#099">0</span>] = <span style="color:#d14">&#39;H&#39;</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#0086b3">string</span>(byteS1))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	s2 <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;博客&#34;</span>
+</span></span><span style="display:flex;"><span>	runeS2 <span style="color:#000;font-weight:bold">:=</span> []<span style="color:#0086b3">rune</span>(s2)
+</span></span><span style="display:flex;"><span>	runeS2[<span style="color:#099">0</span>] = <span style="color:#d14">&#39;狗&#39;</span>
+</span></span><span style="display:flex;"><span>	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#0086b3">string</span>(runeS2))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="类型转换">类型转换</h3>
+<p>Go语言中只有强制类型转换，没有隐式类型转换。该语法只能在两个类型之间支持相互转换的时候使用。</p>
+<p>强制转换类型语法：<code>T(表达式)</code>；T表示要转换的类型。表达式包括变量、复杂算子和函数返回值</p>
+<h2 id="变量和常量">变量和常量</h2>
+<blockquote>
+<p>变量来源于数学，是计算机语言中能储存计算结果或能表示值抽象概念</p>
+<p>变量可以通过变量名访问</p>
+</blockquote>
+<h3 id="变量名命名规则">变量名命名规则</h3>
+<blockquote>
+<p>变量名由字母、数字、下划线组成，其中首个字符不能为数字</p>
+</blockquote>
+<p>下面对文件名命令规则的说明：
+1、平台区分
+文件名_平台。</p>
+<p>例： file_windows.go, file_unix.go</p>
+<p>可选为：windows, unix, posix, plan9, darwin, bsd, linux, freebsd, nacl, netbsd, openbsd, solaris, dragonfly, bsd, notbsd， android，stubs</p>
+<p>2、测试单元
+文件名<em>test.go或者 文件名</em>平台_test.go。
+例： path_test.go, path_windows_test.go</p>
+<p>3、版本区分(猜测)
+文件名_版本号等。
+例：trap_windows_1.4.go</p>
+<p>4、CPU类型区分, 汇编用的多
+文件名_(平台:可选)_CPU类型.
+例：vdso_linux_amd64.go
+可选：amd64, none, 386, arm, arm64, mips64, s390,mips64x,ppc64x, nonppc64x, s390x, x86,amd64p32</p>
+<p>1、golang的命名需要使用驼峰命名法，且不能出现下划线</p>
+<p>2、golang中根据首字母的大小写来确定可以访问的权限。无论是方法名、常量、变量名还是结构体的名称，如果首字母大写，则可以被其他的包访问；如果首字母小写，则只能在本包中使用
+可以简单的理解成，首字母大写是公有的，首字母小写是私有的</p>
+<p>3、结构体中属性名的大写</p>
+<p>如果属性名小写则在数据解析（如json解析,或将结构体作为请求或访问参数）时无法解析</p>
+<p>注意点一、</p>
+<p>go build 的时候会选择性地编译以系统名结尾的文件(linux、darwin、windows、freebsd)。例如Linux(Unix)系统下编译只会选择array_linux.go文件，其它系统命名后缀文件全部忽略。</p>
+<p>注意点二、
+在xxx.go文件的文件头上添加 // + build !windows (tags)，可以选择在windows系统下面不编译
+// +build !windows
+package main</p>
+<p>总结：golang跨平台没有java好用，但是跟c语言差不多，都得针对不同平台不同特性迭轮子</p>
+<h3 id="变量初始化方式">变量初始化方式</h3>
+<h4 id="标准格式">标准格式</h4>
+<blockquote>
+<p>变量声明以关键字 var 开头，后置变量类型，行尾无须分号</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> <span style="color:#a61717;background-color:#e3d2d2">变量名</span> <span style="color:#a61717;background-color:#e3d2d2">变量类型</span>
+</span></span></code></pre></div><h4 id="批量方式">批量方式</h4>
+<blockquote>
+<p>使用关键字 var 和括号，可以将一组变量定义放在一起</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">var</span> (
+</span></span><span style="display:flex;"><span>    a <span style="color:#458;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>    b <span style="color:#458;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h4 id="简短方式">简短方式</h4>
+<blockquote>
+<p>除 var 关键字外，还可使用更加简短的变量定义和初始化语法</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">名字</span> <span style="color:#000;font-weight:bold">:=</span> <span style="color:#a61717;background-color:#e3d2d2">表达式</span>
+</span></span></code></pre></div><p>简短模式（short variable declaration）的限制：</p>
+<ul>
+<li>定义变量，同时显式初始化</li>
+<li>不提供数据类型</li>
+<li>只能用在函数内部</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>    x<span style="color:#000;font-weight:bold">:=</span><span style="color:#099">100</span>
+</span></span><span style="display:flex;"><span>    a,s <span style="color:#000;font-weight:bold">:=</span> <span style="color:#099">1</span>, <span style="color:#d14">&#34;abc&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>因为简洁和灵活的特点，<u>简短变量声明被广泛用于大部分的局部变量的声明和初始化</u>。<u>var 形式的声明语句往往是用于需要显式指定变量类型，或因变量会被重新赋值而初始值无关紧要的地方</u>。</p>
+<h4 id="匿名变量">匿名变量</h4>
+<p>在使用多重赋值时，如果想要忽略某个值，可以使用<code>匿名变量（anonymous variable）</code>。 匿名变量用一个下划线<code>_</code>表示</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>    x, _ <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">foo</span>()
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;x=&#34;</span>, x)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>匿名变量不占用命名空间，不会分配内存，所以匿名变量之间不存在重复声明。</p>
+</blockquote>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>函数外的每个语句都必须以关键字开始（var、const、func等）</li>
+<li><code>:=</code>不能使用在函数外。</li>
+<li><code>_</code>多用于占位，表示忽略值。</li>
+</ul>
+<h3 id="常量">常量</h3>
+<p>常量是恒定不变的值，多用于定义程序运行期间不会改变的那些值。 常量的声明和变量声明非常类似，只是把<code>var</code>换成了<code>const</code>，常量在定义的时候必须赋值。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> pi = <span style="color:#099">3.1415</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> e = <span style="color:#099">2.7182</span>
+</span></span></code></pre></div><blockquote>
+<p>声明的常量，在整个程序运行期间它们的值都不能再发生变化了</p>
+</blockquote>
+<p><strong><code>const</code>同时声明多个常量时，如果省略了值则表示和上面一行的值相同</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span> <span style="color:#000;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>     n1 = <span style="color:#099">100</span>
+</span></span><span style="display:flex;"><span>     n2
+</span></span><span style="display:flex;"><span>     n3
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// n1,n2,n3值都为100
+</span></span></span></code></pre></div><h4 id="iota">iota</h4>
+<p><code>iota</code>是<code>go</code>语言的常量计数器，只能在常量的表达式中使用。 <code>iota</code>在<code>const</code>关键字出现时将被重置为<code>0</code>。<code>const</code>中每新增一行常量声明将使<code>iota</code>计数一次(<code>iota</code>可理解为<code>const</code>语句块中的行索引)。 使用<code>iota</code>能简化定义，在定义枚举时很有用。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>	n1 = <span style="color:#000;font-weight:bold">iota</span> <span style="color:#998;font-style:italic">//0
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	n2        <span style="color:#998;font-style:italic">//1
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	n3        <span style="color:#998;font-style:italic">//2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	n4        <span style="color:#998;font-style:italic">//3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>)
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// ------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>	n1 = <span style="color:#000;font-weight:bold">iota</span> <span style="color:#998;font-style:italic">//0
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	n2 = <span style="color:#099">100</span>  <span style="color:#998;font-style:italic">//100
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	n3 = <span style="color:#000;font-weight:bold">iota</span> <span style="color:#998;font-style:italic">//2
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>	n4        <span style="color:#998;font-style:italic">//3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>)
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">const</span> n5 = <span style="color:#000;font-weight:bold">iota</span> <span style="color:#998;font-style:italic">//0
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// ------------------------
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>	_  = <span style="color:#000;font-weight:bold">iota</span>
+</span></span><span style="display:flex;"><span>	KB = <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> (<span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">iota</span>)
+</span></span><span style="display:flex;"><span>	MB = <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> (<span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">iota</span>)
+</span></span><span style="display:flex;"><span>	GB = <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> (<span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">iota</span>)
+</span></span><span style="display:flex;"><span>	TB = <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> (<span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">iota</span>)
+</span></span><span style="display:flex;"><span>	PB = <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> (<span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">iota</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h2 id="下划线">下划线</h2>
+<blockquote>
+<p>“_”是特殊标识符，用来忽略结果</p>
+</blockquote>
+<h3 id="下划线在import中">下划线在import中</h3>
+<blockquote>
+<p>在Golang中，import的作用是导入其他package</p>
+</blockquote>
+<p>import 下划线（如：<code>import _ hello/imp</code>）的作用：</p>
+<p>当导入一个包时，该包下的文件里所有init()函数都会被执行，然而，有些时候并不需要把整个包都导入进来，仅仅是是希望执行init()函数而已,就可以使用 import _ 引用该包。即使用【import _ 包路径】只是引用该包。仅仅是为了调用init()函数，所以无法通过包名来调用包中的其他函数。</p>
+<h3 id="下划线在代码中">下划线在代码中</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#d14">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>    buf <span style="color:#000;font-weight:bold">:=</span> <span style="color:#0086b3">make</span>([]<span style="color:#458;font-weight:bold">byte</span>, <span style="color:#099">1024</span>)
+</span></span><span style="display:flex;"><span>    f, _ <span style="color:#000;font-weight:bold">:=</span> os.<span style="color:#900;font-weight:bold">Open</span>(<span style="color:#d14">&#34;/Users/***/Desktop/text.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">defer</span> f.<span style="color:#900;font-weight:bold">Close</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span> {
+</span></span><span style="display:flex;"><span>        n, _ <span style="color:#000;font-weight:bold">:=</span> f.<span style="color:#900;font-weight:bold">Read</span>(buf)
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> n <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        os.Stdout.<span style="color:#900;font-weight:bold">Write</span>(buf[:n])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p><strong>解释一</strong></p>
+<p>下划线意思是忽略这个变量</p>
+<p>比如<code>os.Open</code>，返回值为<code>*os.File，error</code>，普通写法是<code>f,err := os.Open(&quot;xxxxxxx&quot;)</code>。如果此时不需要知道返回的错误值就可以用<code>f, _ := os.Open(&quot;xxxxxx&quot;)</code>，如此则忽略了error变量</p>
+</blockquote>
+<blockquote>
+<p><strong>解释二</strong></p>
+<p>占位符，意思是那个位置本应赋给某个值，但是不需要这个值。所以就把该值赋给下划线，意思是丢掉不要。这样编译器可以更好的优化，任何类型的单个值都可以丢给下划线。这种情况是占位用的，方法返回两个结果，而只想要一个结果。那另一个就用 &ldquo;_&rdquo; 占位，如果用变量的话，不使用，编译器是会报错的。</p>
+</blockquote>
+<h2 id="特殊函数">特殊函数</h2>
+<h3 id="init函数">init()函数</h3>
+<blockquote>
+<p>go语言中<code>init</code>函数用于包<code>(package)</code>的初始化</p>
+</blockquote>
+<ul>
+<li>init函数是用于程序执行前做<strong>包的初始化的函数</strong>，比如初始化包里的变量等</li>
+<li>每个包可以拥有多个init函数，包的每个源文件也可以拥有多个init函数</li>
+<li><strong>同一个包</strong>中<u>多个init函数的执行顺序没有明确的定义/说明</u></li>
+<li><strong>不同包</strong>的<u>init函数执行顺序按照包导入的依赖关系决定</u></li>
+<li><u>init函数不能被其他函数调用</u>，而是<strong>在main函数执行之前，自动被调用</strong></li>
+</ul>
+<h3 id="main函数">main()函数</h3>
+<blockquote>
+<p>Go语言程序的默认入口函数(主函数)：func main()</p>
+</blockquote>
+<p><strong>init函数和mian函数的执行顺序</strong>：</p>
+<ul>
+<li>对<strong>同一个go文件</strong>的<code>init()</code>函数调用顺序是<strong>从上到下</strong></li>
+<li>对<strong>同一个package中不同go文件</strong>是<strong>按文件名字符串比较“从小到大”顺序</strong>调用各文件中的<code>init()</code>函数</li>
+<li>对于不同的<code>package</code>，如果不相互依赖的话，按照main包中&quot;先<code>import</code>的后调用&quot;的顺序调用其包中的<code>init()</code>，如果<code>package</code>存在依赖，则先调用最早被依赖的<code>package</code>中的<code>init()</code>，最后调用<code>main</code>函数。</li>
+<li>如果<code>init</code>函数中使用了<code>println()</code>或者<code>print()</code>会发现在执行过程中这两个不会按照想象中的顺序执行。这两个函数官方只推荐在测试环境中使用，对于正式环境不要使用。</li>
+</ul>
+<h2 id="流程控制">流程控制</h2>
+<h3 id="条件判断控制">条件判断控制</h3>
+<blockquote>
+<p>条件语句需要开发者通过指定一个或多个条件，并通过测试条件是否为 true 来决定是否执行指定语句，并在条件为 false 的情况在执行另外的语句</p>
+</blockquote>
+<h4 id="if语句">if语句</h4>
+<p><strong>if 语句的语法</strong></p>
+<ul>
+<li>可省略条件表达式括号</li>
+<li>持初始化语句，可定义代码块局部变量</li>
+<li>代码块左 括号必须在条件表达式尾部</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">if</span> <span style="color:#a61717;background-color:#e3d2d2">布尔表达式</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">/* 在布尔表达式为 true 时执行 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>if 在布尔表达式为 true 时，其后紧跟的语句块执行，如果为 false 则不执行。</p>
+<blockquote>
+<p>*不支持三元操作符(三目运算符) &ldquo;a &gt; b ? a : b&rdquo;。</p>
+</blockquote>
+<h4 id="switch语句">switch语句</h4>
+<blockquote>
+<p>switch 语句用于基于不同条件执行不同动作，每一个 case 分支都是唯一的，从上直下逐一测试，直到匹配为止</p>
+<p>Golang switch 分支表达式可以是任意类型，不限于常量。可省略 break，<strong>默认自动终止，可以使用fallthrough强制执行后面的case代码</strong></p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">switch</span> var1 {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> val1:
+</span></span><span style="display:flex;"><span>        <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">case</span> val2:
+</span></span><span style="display:flex;"><span>        <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#998;font-style:italic">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><blockquote>
+<p>变量 var1 可以是任何类型，而 val1 和 val2 则可以是同类型的任意值。类型不被局限于常量或整数，但<strong>必须是相同的类型</strong>；或者最终结果为相同类型的表达式。 可以同时测试多个可能符合条件的值，使用逗号分割：<code>case val1, val2, val3</code></p>
+</blockquote>
+<p>注意<code>switch</code>后可以跟空，如上，原因是之前已经出现过<code>number</code>变量；如果为空，这样<code>case</code>就必须是表达式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">switchDemo</span>(number <span style="color:#458;font-weight:bold">int</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">switch</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> number <span style="color:#000;font-weight:bold">&gt;=</span> <span style="color:#099">90</span>:
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;优秀&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> number <span style="color:#000;font-weight:bold">&gt;=</span> <span style="color:#099">80</span>:
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;良好&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> number <span style="color:#000;font-weight:bold">&gt;=</span> <span style="color:#099">60</span>:
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;凑合&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;太搓了&#34;</span>) 
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>switch 语句还可以被用于 type-switch 来判断某个 interface 变量中实际存储的变量类型</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">switch</span> x.(<span style="color:#000;font-weight:bold">type</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> <span style="color:#000;font-weight:bold">type</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#900;font-weight:bold">statement</span>(s)      
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> <span style="color:#000;font-weight:bold">type</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#900;font-weight:bold">statement</span>(s)
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">/* 可以定义任意个数的case */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">default</span>: <span style="color:#998;font-style:italic">/* 可选 */</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#900;font-weight:bold">statement</span>(s)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="select语句">select语句</h4>
+<p><strong>select会随机执行一个可运行的case</strong>。如果<u>没有case可运行，它将阻塞，直到有case可运行</u></p>
+<p>select 是Go中的一个控制结构，类似于用于通信的switch语句。每个case必须是一个通信操作，要么是发送要么是接收。 select 随机执行一个可运行的case。如果没有case可运行，它将阻塞，直到有case可运行。一个默认的子句应该总是可运行的</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">select</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> communication clause  :
+</span></span><span style="display:flex;"><span>       <span style="color:#900;font-weight:bold">statement</span>(s);      
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> communication clause  :
+</span></span><span style="display:flex;"><span>       <span style="color:#900;font-weight:bold">statement</span>(s);
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">/* 你可以定义任意数量的 case */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">default</span> : <span style="color:#998;font-style:italic">/* 可选 */</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#900;font-weight:bold">statement</span>(s);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    每个case都必须是一个通信
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    所有channel表达式都会被求值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    所有被发送的表达式都会被求值
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    如果任意某个通信可以进行，它就执行；其他被忽略。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    如果有多个case都可以运行，Select会随机公平地选出一个执行。其他不会执行。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    否则：
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    如果有default子句，则执行该语句。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">    如果没有default字句，select将阻塞，直到某个通信可以运行；Go不会重新对channel或值进行求值。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">*/</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">var</span> c1, c2, c3 <span style="color:#000;font-weight:bold">chan</span> <span style="color:#458;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">var</span> i1, i2 <span style="color:#458;font-weight:bold">int</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#000;font-weight:bold">select</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">case</span> i1 = <span style="color:#000;font-weight:bold">&lt;-</span>c1:
+</span></span><span style="display:flex;"><span>         fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;received &#34;</span>, i1, <span style="color:#d14">&#34; from c1\n&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">case</span> c2 <span style="color:#000;font-weight:bold">&lt;-</span> i2:
+</span></span><span style="display:flex;"><span>         fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;sent &#34;</span>, i2, <span style="color:#d14">&#34; to c2\n&#34;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">case</span> i3, ok <span style="color:#000;font-weight:bold">:=</span> (<span style="color:#000;font-weight:bold">&lt;-</span>c3):  <span style="color:#998;font-style:italic">// same as: i3, ok := &lt;-c3
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>         <span style="color:#000;font-weight:bold">if</span> ok {
+</span></span><span style="display:flex;"><span>            fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;received &#34;</span>, i3, <span style="color:#d14">&#34; from c3\n&#34;</span>)
+</span></span><span style="display:flex;"><span>         } <span style="color:#000;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;c3 is closed\n&#34;</span>)
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>         fmt.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;no communication\n&#34;</span>)
+</span></span><span style="display:flex;"><span>   }    
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 执行结果： no communication
+</span></span></span></code></pre></div><p>select可以监听channel的数据流动，由select开始的一个新的选择块，每个选择条件由case语句来描述</p>
+<p>与switch语句可以选择任何使用相等比较的条件相比，select由比较多的限制，其中最大的一条限制就是<strong>每个case语句里必须是一个IO操作</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">select</span> { <span style="color:#998;font-style:italic">// 不停的在这里检测
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">case</span> <span style="color:#000;font-weight:bold">&lt;-</span>chanl : <span style="color:#998;font-style:italic">// 检测有没有数据可以读
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// 如果chanl成功读取到数据，则进行该case处理语句
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">case</span> chan2 <span style="color:#000;font-weight:bold">&lt;-</span> <span style="color:#099">1</span> : <span style="color:#998;font-style:italic">// 检测有没有可以写
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// 如果成功向chan2写入数据，则进行该case处理语句
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// 假如没有default，那么在以上两个条件都不成立的情况下，就会在此阻塞
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// 一般default会不写在里面，select中的default子句总是可运行的，因为会很消耗CPU资源
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 如果以上都没有符合条件，那么则进行default处理流程
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><p>在一个select语句中，Go会按顺序从头到尾评估每一个发送和接收的语句。</p>
+<p>如果其中的任意一个语句可以继续执行（即没有被阻塞），那么就从那些可以执行的语句中任意选择一条来使用。 如果没有任意一条语句可以执行（即所有的通道都被阻塞），那么有两种可能的情况： ①如果给出了default语句，那么就会执行default的流程，同时程序的执行会从select语句后的语句中恢复。 ②如果没有default语句，那么select语句将被阻塞，直到至少有一个case可以进行下去。</p>
+<h5 id="select的使用及典型用法">select的使用及典型用法</h5>
+<p>select是Go中的一个控制结构，类似于switch语句，用于处理异步IO操作。select会监听case语句中channel的读写操作，当case中channel读写操作为非阻塞状态（即能读写）时，将会触发相应的动作。 select中的case语句必须是一个channel操作</p>
+<p>select中的default子句总是可运行的。</p>
+<p>如果有多个case都可以运行，select会随机公平地选出一个执行，其他不会执行。</p>
+<p>如果没有可运行的case语句，且有default语句，那么就会执行default的动作。</p>
+<p>如果没有可运行的case语句，且没有default语句，select将阻塞，直到某个case通信可以运行</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 超时判断
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//比如在下面的场景中，使用全局resChan来接受response，如果时间超过3S,resChan中还没有数据返回，则第二条case将执行
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> resChan = <span style="color:#0086b3">make</span>(<span style="color:#000;font-weight:bold">chan</span> <span style="color:#458;font-weight:bold">int</span>)
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">// do request
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">test</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">select</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> data <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">&lt;-</span>resChan:
+</span></span><span style="display:flex;"><span>        <span style="color:#900;font-weight:bold">doData</span>(data)
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">case</span> <span style="color:#000;font-weight:bold">&lt;-</span>time.<span style="color:#900;font-weight:bold">After</span>(time.Second <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">3</span>):
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;request time out&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">doData</span>(data <span style="color:#458;font-weight:bold">int</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 退出
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//主线程（协程）中如下：
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> shouldQuit=<span style="color:#0086b3">make</span>(<span style="color:#000;font-weight:bold">chan</span> <span style="color:#000;font-weight:bold">struct</span>{})
+</span></span><span style="display:flex;"><span>fun <span style="color:#900;font-weight:bold">main</span>(){
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#998;font-style:italic">//loop
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">//...out of the loop
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">select</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">case</span> <span style="color:#000;font-weight:bold">&lt;-</span>c.shouldQuit:
+</span></span><span style="display:flex;"><span>            <span style="color:#900;font-weight:bold">cleanUp</span>()
+</span></span><span style="display:flex;"><span>            <span style="color:#000;font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//再另外一个协程中，如果运行遇到非法操作或不可处理的错误，就向shouldQuit发送数据通知程序停止运行
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span><span style="color:#0086b3">close</span>(shouldQuit)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#998;font-style:italic">// 判断channel是否阻塞
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//在某些情况下是存在不希望channel缓存满了的需求的，可以用如下方法判断
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>ch <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">make</span> (<span style="color:#000;font-weight:bold">chan</span> <span style="color:#458;font-weight:bold">int</span>, <span style="color:#099">5</span>)
+</span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>data<span style="color:#a61717;background-color:#e3d2d2">：</span>=<span style="color:#099">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">select</span> {
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">case</span> ch <span style="color:#000;font-weight:bold">&lt;-</span> data:
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">//做相应操作，比如丢弃data。视需求而定
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><h3 id="循环控制">循环控制</h3>
+<h4 id="for循环">for循环</h4>
+<blockquote>
+<p>for循环是一个循环控制结构，可以执行指定次数的循环</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">for</span> init; condition; post { }
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">-</span> init<span style="color:#a61717;background-color:#e3d2d2">：</span> <span style="color:#a61717;background-color:#e3d2d2">赋值表达式，给控制变量赋初值；</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">-</span> condition<span style="color:#a61717;background-color:#e3d2d2">：</span> <span style="color:#a61717;background-color:#e3d2d2">关系表达式或逻辑表达式，循环控制条件；</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">-</span> post<span style="color:#a61717;background-color:#e3d2d2">：</span> <span style="color:#a61717;background-color:#e3d2d2">赋值表达式，给控制变量增量或减量。</span>
+</span></span><span style="display:flex;"><span>for<span style="color:#a61717;background-color:#e3d2d2">语句执行过程如下：</span>
+</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">①</span> <span style="color:#a61717;background-color:#e3d2d2">先对表达式</span> init <span style="color:#a61717;background-color:#e3d2d2">赋初值；</span>
+</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">②</span> <span style="color:#a61717;background-color:#e3d2d2">判别赋值表达式</span> init <span style="color:#a61717;background-color:#e3d2d2">是否满足给定</span> condition <span style="color:#a61717;background-color:#e3d2d2">条件，若其值为真，满足循环条件，则执行循环体内语句，</span>
+</span></span><span style="display:flex;"><span><span style="color:#a61717;background-color:#e3d2d2">③</span> <span style="color:#a61717;background-color:#e3d2d2">然后执行</span> post<span style="color:#a61717;background-color:#e3d2d2">，进入第二次循环，再判别</span> condition<span style="color:#a61717;background-color:#e3d2d2">；否则判断</span> condition <span style="color:#a61717;background-color:#e3d2d2">的值为假，不满足条件，就终止</span>for<span style="color:#a61717;background-color:#e3d2d2">循环，执行循环体外语句。</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">for</span> condition { }
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">for</span> { } <span style="color:#998;font-style:italic">// 循环中条件语句永远不为 false 则会进行无限循环
+</span></span></span></code></pre></div><h4 id="range循环">range循环</h4>
+<p>Golang range类似迭代器操作，返回 (索引, 值) 或 (键, 值)</p>
+<p>for 循环的 range 格式可以对 slice、map、数组、字符串等进行迭代循环</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">for</span> key, value <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> oldMap {
+</span></span><span style="display:flex;"><span>    newMap[key] = value
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">第一个值</th>
+<th style="text-align:center">第二个值</th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">string</td>
+<td style="text-align:center">index</td>
+<td style="text-align:center">s[index]</td>
+<td style="text-align:center">unicode, rune</td>
+</tr>
+<tr>
+<td style="text-align:center">array/slice</td>
+<td style="text-align:center">index</td>
+<td style="text-align:center">s[index]</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">map</td>
+<td style="text-align:center">key</td>
+<td style="text-align:center">m[key]</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">channel</td>
+<td style="text-align:center">element</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>可忽略不想要的返回值，或 <code>&quot;_&quot;</code> 这个特殊变量</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>    s <span style="color:#000;font-weight:bold">:=</span> <span style="color:#d14">&#34;abc&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 忽略 2nd value，支持 string/array/slice/map。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> s {
+</span></span><span style="display:flex;"><span>        <span style="color:#0086b3">println</span>(s[i])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 忽略 index。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">for</span> _, c <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> s {
+</span></span><span style="display:flex;"><span>        <span style="color:#0086b3">println</span>(c)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 忽略全部返回值，仅迭代。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">for</span> <span style="color:#000;font-weight:bold">range</span> s {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    m <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">map</span>[<span style="color:#458;font-weight:bold">string</span>]<span style="color:#458;font-weight:bold">int</span>{<span style="color:#d14">&#34;a&#34;</span>: <span style="color:#099">1</span>, <span style="color:#d14">&#34;b&#34;</span>: <span style="color:#099">2</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#998;font-style:italic">// 返回 (key, value)。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">for</span> k, v <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> m {
+</span></span><span style="display:flex;"><span>        <span style="color:#0086b3">println</span>(k, v)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>range循环会复制对象，可以使用引用类型，底层数据不会被复制</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+</span></span><span style="display:flex;"><span>    a <span style="color:#000;font-weight:bold">:=</span> [<span style="color:#099">3</span>]<span style="color:#458;font-weight:bold">int</span>{<span style="color:#099">0</span>, <span style="color:#099">1</span>, <span style="color:#099">2</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000;font-weight:bold">for</span> i, v <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> a { <span style="color:#998;font-style:italic">// index、value 都是从复制品中取出。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">if</span> i <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">0</span> { <span style="color:#998;font-style:italic">// 在修改前，我们先修改原数组。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>            a[<span style="color:#099">1</span>], a[<span style="color:#099">2</span>] = <span style="color:#099">999</span>, <span style="color:#099">999</span>
+</span></span><span style="display:flex;"><span>            fmt.<span style="color:#900;font-weight:bold">Println</span>(a) <span style="color:#998;font-style:italic">// 确认修改有效，输出 [0, 999, 999]。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        a[i] = v <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">100</span> <span style="color:#998;font-style:italic">// 使用复制品中取出的 value 修改原数组。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fmt.<span style="color:#900;font-weight:bold">Println</span>(a) <span style="color:#998;font-style:italic">// 输出 [100, 101, 102]。
+</span></span></span><span style="display:flex;"><span><span style="color:#998;font-style:italic"></span>}
+</span></span></code></pre></div><p><strong>循环控制语句</strong>：控制循环体内语句的执行过程</p>
+<ul>
+<li>三个语句都可以配合标签(label)使用</li>
+<li>标签名区分大小写，定以后若不使用会造成编译错误</li>
+<li>continue、break配合标签(label)可用于多层循环跳出</li>
+<li>goto是调整执行位置，与continue、break配合标签(label)的结果并不相同</li>
+</ul>
+
+    </div>
+
+    
+
+    
+
+    <div class="container-prevnext">
+    <div><a href="https://idiots-dream.github.io/posts/golang/struct/">← Golang 结构体</a></div>
+    <div></div>
+</div>
+    
+    <div class="container-comment">
+	<script src="https://utteranc.es/client.js"
+        repo="&lt;YOUR_GITHUB_REPO&gt;"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+	</script>
+</div>
+
+    
+</div>
+
+        </div>
+        <div id="footer"><div class="container-footer">
+    
+    <a href="//beian.miit.gov.cn" target="_blank">
+        
+        <span class="some">enter your icp or a interesting slogan...<span>
+        
+    </a>
+    <a id="s" href="/secrets">&nbsp;</a>
+    
+</div></div>
+    </body>
+</html>

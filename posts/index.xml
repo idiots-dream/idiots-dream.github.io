@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 漠河-idiot</title>
+    <link>https://idiots-dream.github.io/posts/</link>
+    <description>Recent content in Posts on 漠河-idiot</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 30 Jun 2023 23:55:37 +0800</lastBuildDate><atom:link href="https://idiots-dream.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>百科全书</title>
+      <link>https://idiots-dream.github.io/posts/wiki/</link>
+      <pubDate>Fri, 30 Jun 2023 23:55:37 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/posts/wiki/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang 结构体</title>
+      <link>https://idiots-dream.github.io/posts/golang/struct/</link>
+      <pubDate>Fri, 30 Jun 2023 23:32:56 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/posts/golang/struct/</guid>
+      <description>Go语言中没有“类”的概念，也不支持“类”的继承等面向对象的概念。Go语言中通过结构体的内嵌再配合接口比面向对象具有更高的扩展性和灵活性。 类型别名和自定义类型 自</description>
+    </item>
+    
+    <item>
+      <title>Golang 基础知识</title>
+      <link>https://idiots-dream.github.io/posts/golang/basic/</link>
+      <pubDate>Fri, 30 Jun 2023 23:28:49 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/posts/golang/basic/</guid>
+      <description>Golang 基础知识 数据类型 数字类型 整数类型（int） GO语言中int类型的大小是不确定的，与具体的平台有关系，一般来说，int在32位系统中是4字节，在64位系统中是8</description>
+    </item>
+    
+  </channel>
+</rss>

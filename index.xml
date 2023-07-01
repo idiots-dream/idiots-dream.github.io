@@ -2,9 +2,73 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>漠河-idiot</title>
-    <link>https://ovirgo.com/</link>
+    <link>https://idiots-dream.github.io/</link>
     <description>Recent content on 漠河-idiot</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://ovirgo.com/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 30 Jun 2023 23:55:37 +0800</lastBuildDate><atom:link href="https://idiots-dream.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Search</title>
+      <link>https://idiots-dream.github.io/search/</link>
+      <pubDate>Fri, 30 Jun 2023 23:58:41 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/search/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>https://idiots-dream.github.io/archive/</link>
+      <pubDate>Fri, 30 Jun 2023 23:58:30 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/archive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://idiots-dream.github.io/about/</link>
+      <pubDate>Fri, 30 Jun 2023 23:58:17 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/about/</guid>
+      <description>心情不好的时候，就觉得全世界都完了，无论感情，无论生活；心情好的时候，又觉得生活真的太美好了，真的好想再活五百年。给自己定了这么多年的规则和底线，到最后还是“看</description>
+    </item>
+    
+    <item>
+      <title>百科全书</title>
+      <link>https://idiots-dream.github.io/posts/wiki/</link>
+      <pubDate>Fri, 30 Jun 2023 23:55:37 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/posts/wiki/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nav</title>
+      <link>https://idiots-dream.github.io/nav/</link>
+      <pubDate>Fri, 30 Jun 2023 23:53:34 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/nav/</guid>
+      <description>🌞 我的社交平台 GitHub Gitee 掘金 博客园 CSDN 🔨 友链 小林coding 菜鸟教程 阮一峰的网络日志 Java 全栈知识体系 Go 语言中文文档 📑 工具 在线工具 清华大学开源软件镜像站 矢量图标库 结构化 SQL 生</description>
+    </item>
+    
+    <item>
+      <title>Golang 结构体</title>
+      <link>https://idiots-dream.github.io/posts/golang/struct/</link>
+      <pubDate>Fri, 30 Jun 2023 23:32:56 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/posts/golang/struct/</guid>
+      <description>Go语言中没有“类”的概念，也不支持“类”的继承等面向对象的概念。Go语言中通过结构体的内嵌再配合接口比面向对象具有更高的扩展性和灵活性。 类型别名和自定义类型 自</description>
+    </item>
+    
+    <item>
+      <title>Golang 基础知识</title>
+      <link>https://idiots-dream.github.io/posts/golang/basic/</link>
+      <pubDate>Fri, 30 Jun 2023 23:28:49 +0800</pubDate>
+      
+      <guid>https://idiots-dream.github.io/posts/golang/basic/</guid>
+      <description>Golang 基础知识 数据类型 数字类型 整数类型（int） GO语言中int类型的大小是不确定的，与具体的平台有关系，一般来说，int在32位系统中是4字节，在64位系统中是8</description>
+    </item>
+    
   </channel>
 </rss>
